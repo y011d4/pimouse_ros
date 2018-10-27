@@ -8,8 +8,11 @@ from geometry_msgs.msg import Twist
 
 class MotorTest(unittest.TestCase):
     def file_check(self, dev, value, message):
-        with open("/dev/" + dev, "r") as f:
-            self.assertEqual(f.readline(), str(value)+"\n", message)
+        try:
+            with open("/dev/" + dev, "r") as f:
+                self.assertEqual(f.readline(), str(value)+"\n", message)
+        except IOError:
+            rospy.logerr("cannot open file: /dev/"+dev)
 
     def test_node_exist(self):
         nodes = rosnode.get_node_names()
