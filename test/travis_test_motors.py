@@ -87,6 +87,7 @@ class MotorTest(unittest.TestCase):
                 self.assertEqual(data, "-321 654 1500\n", "value does not written to rtmotor0")
         except IOError:
             rospy.logerr("cannot open file: /dev/rtmotor0")
+            self.assertTrue(False, "cannot open")
 
 if __name__ == '__main__':
     rospy.init_node('travis_test_motors')
